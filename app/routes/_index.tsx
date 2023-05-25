@@ -14,38 +14,29 @@ const schedules = [
   {
     name: 'Fajr',
     description:
-      'Morbi viverra dui mi arcu sed. Tellus semper adipiscing suspendisse semper morbi. Odio urna massa nunc massa.',
-    icon: CloudArrowUpIcon,
+      'Subuh'
   },
-  {
-    name: 'Shuruk',
-    description:
-      'Sit quis amet rutrum tellus ullamcorper ultricies libero dolor eget. Sem sodales gravida quam turpis enim lacus amet.',
-    icon: LockClosedIcon,
-  },
+
   {
     name: 'Duhr',
     description:
-      'Quisque est vel vulputate cursus. Risus proin diam nunc commodo. Lobortis auctor congue commodo diam neque.',
+      'Dhuhur',
     icon: ArrowPathIcon,
   },
   {
     name: 'Asr',
     description:
-      'Arcu egestas dolor vel iaculis in ipsum mauris. Tincidunt mattis aliquet hac quis. Id hac maecenas ac donec pharetra eget.',
-    icon: FingerPrintIcon,
+      'Asar'
   },
   {
     name: 'Maghrib',
     description:
-      'Arcu egestas dolor vel iaculis in ipsum mauris. Tincidunt mattis aliquet hac quis. Id hac maecenas ac donec pharetra eget.',
-    icon: FingerPrintIcon,
+      'Maghrib'
   },
   {
     name: 'Isha',
     description:
-      'Arcu egestas dolor vel iaculis in ipsum mauris. Tincidunt mattis aliquet hac quis. Id hac maecenas ac donec pharetra eget.',
-    icon: FingerPrintIcon,
+      'Isya'
   },    
 ]
 
@@ -88,7 +79,7 @@ export default function Index() {
           </p>
         </div>
         <div className="mx-auto mt-6 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
-          <dl className="grid max-w-xl grid-cols-1 gap-x-2 gap-y-2 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
+          <dl className="grid max-w-xl grid-cols-1 gap-x-2 gap-y-2 lg:max-w-none  lg:gap-y-4">
           {schedules.map((s) => (
             <div key={s.name} className="relative border text-center">
 

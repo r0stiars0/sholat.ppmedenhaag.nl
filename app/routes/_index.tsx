@@ -117,15 +117,15 @@ export default function Index() {
   return (
     <div className="flex flex-col  justify-between">
       <header className="h-10 text-center">
-        <h2 className="text-base font-semibold leading-7 text-gray-600">
-          Jadwal Sholat <span className="text-xl text-indigo-900"></span> untuk
+        <h2 className="text-base font-semibold leading-7 text-gray-600 dark:text-gray-100">
+          Jadwal Sholat <span className="text-xl text-indigo-900 dark:text-indigo-100"></span> untuk
           Den Haag
         </h2>
       </header>
 
       <main className=" mb-auto mx-auto max-w-xl px-6 lg:px-8 pb-2">
         <div className="mx-auto text-center">
-          <h1 className="text-base font-semibold text-indigo-600">
+          <h1 className="text-base font-semibold text-indigo-700 dark:text-indigo-200">
             {date.toLocaleDateString("id-ID", options)}
           </h1>
 
@@ -136,7 +136,7 @@ export default function Index() {
         <div className="mx-auto mt-6 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
           <dl className="grid grid-cols-1 gap-x-2 gap-y-2 lg:max-w-none  lg:gap-y-4">
             {data.Day === -1 && (
-              <h1 className="text-base font-semibold text-gray-600 text-center">
+              <h1 className="text-base font-semibold text-gray-600 dark:text-gray-300 text-center">
                 Maaf, jadwal sholat tidak tersedia.
               </h1>
             )}
@@ -146,26 +146,26 @@ export default function Index() {
                   key={s.name}
                   className={clsx(
                     "relative border rounded-md text-center",
-                    period === s.name && "bg-gray-100"
+                    period === s.name && "bg-gray-100 dark:bg-gray-800"
                   )}
                 >
-                  <dt className={clsx(" text-base font-semibold", period === s.name ? "text-gray-900":"text-gray-500")}>
+                  <dt className={clsx(" text-base font-semibold", period === s.name ? "text-gray-900 dark:text-gray-100":"text-gray-500 dark:text-gray-400")}>
                     {s.description}
                   </dt>
-                  <dd className={clsx("mb-2 text-2xl", period === s.name ? "text-indigo-700 font-bold":"text-indigo-500 font-semibold")}>
+                  <dd className={clsx("mb-2 text-2xl", period === s.name ? "text-indigo-700 font-bold":"text-indigo-500 dark:text-indigo-200 font-semibold")}>
                     {data[s.name]}
                   </dd>
                 </div>
               ))}
           </dl>
         </div>
-        <p className="mt-6 text-sm md:text-lg text-gray-600 text-center">
+        <p className="mt-6 text-sm md:text-lg text-gray-600 dark:text-gray-300 text-center">
             "Sungguh, shalat itu adalah kewajiban yang ditentukan waktunya atas
             orang-orang yang beriman" - Al-Baqarah:43
           </p>
       </main>
       <footer className="fixed bottom-0 left-0 z-50 w-full h-12 border-t border-gray-200 dark:bg-gray-700 dark:border-gray-600 bg-gray-50 text-center ">
-        <a className="font-bold text-indigo-800" href="https://ppmedenhaag.nl">
+        <a className="font-bold text-indigo-800 dark:text-indigo-100" href="https://ppmedenhaag.nl">
           PPME Den Haag
         </a>
       </footer>

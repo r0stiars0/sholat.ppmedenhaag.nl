@@ -1,3 +1,14 @@
+export const DATA_NOT_FOUND = 
+{
+    "Day": -1,
+    "Fajr": "00:00",
+    "Shuruk": "00:00",
+    "Duhr": "00:00",
+    "Asr": "00:00",
+    "Maghrib": "00:00",
+    "Isha": "00:00"
+}
+
 export const JADWAL_SHOLAT =
     [
 

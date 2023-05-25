@@ -63,7 +63,7 @@ export default function Index() {
   }, []);
 
   return (
-    <div className="flex flex-col h-screen justify-between">
+    <div className="flex flex-col  justify-between">
       <header className="h-10 text-center"><h2 className="text-base font-semibold leading-7 text-gray-600">Waktu Sholat <span className="text-xl text-indigo-900"></span> untuk Den Haag</h2></header>
       <main className=" mb-auto mx-auto max-w-7xl px-6 lg:px-8 pb-2">
         <div className="mx-auto max-w-2xl text-center">
@@ -93,6 +93,6 @@ export default function Index() {
 
         </div>
       </main>
-      <footer className="h-10 bg-gray-200 text-center "><a href="https://ppmedenhaag.nl">PPME Den Haag</a></footer>
+      <footer className="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200 dark:bg-gray-700 dark:border-gray-600 bg-gray-200 text-center "><a href="https://ppmedenhaag.nl">PPME Den Haag</a></footer>
     </div>);
 }

@@ -123,18 +123,15 @@ export default function Index() {
         </h2>
       </header>
 
-      <main className=" mb-auto mx-auto max-w-7xl px-6 lg:px-8 pb-2">
-        <div className="mx-auto max-w-2xl text-center">
+      <main className=" mb-auto mx-auto max-w-xl px-6 lg:px-8 pb-2">
+        <div className="mx-auto text-center">
           <h1 className="text-base font-semibold text-indigo-600">
             {date.toLocaleDateString("id-ID", options)}
           </h1>
 
           <DigitalClock />
 
-          <p className="mt-6 text-sm md:text-lg text-gray-600">
-            "Sungguh, shalat itu adalah kewajiban yang ditentukan waktunya atas
-            orang-orang yang beriman" - Al-Baqarah:43
-          </p>
+
         </div>
         <div className="mx-auto mt-6 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
           <dl className="grid grid-cols-1 gap-x-2 gap-y-2 lg:max-w-none  lg:gap-y-4">
@@ -162,6 +159,10 @@ export default function Index() {
               ))}
           </dl>
         </div>
+        <p className="mt-6 text-sm md:text-lg text-gray-600 text-center">
+            "Sungguh, shalat itu adalah kewajiban yang ditentukan waktunya atas
+            orang-orang yang beriman" - Al-Baqarah:43
+          </p>
       </main>
       <footer className="fixed bottom-0 left-0 z-50 w-full h-12 border-t border-gray-200 dark:bg-gray-700 dark:border-gray-600 bg-gray-50 text-center ">
         <a className="font-bold text-indigo-800" href="https://ppmedenhaag.nl">

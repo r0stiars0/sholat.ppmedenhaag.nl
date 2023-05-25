@@ -6,7 +6,7 @@ export function DigitalClock() {
   useEffect(() => {
     const timerID = setInterval(() => {
       setTime(new Date());
-    }, 500);
+    }, 1000);
 
     return () => {
       clearInterval(timerID);

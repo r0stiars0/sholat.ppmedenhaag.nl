@@ -155,7 +155,7 @@ export default function Index() {
                   <dt className={clsx(" text-base font-semibold", period === s.name ? "text-gray-900":"text-gray-500")}>
                     {s.description}
                   </dt>
-                  <dd className={clsx("mb-2 text-xl", period === s.name ? "text-indigo-700 font-bold":"text-gray-700")}>
+                  <dd className={clsx("mb-2 text-2xl", period === s.name ? "text-indigo-700 font-bold":"text-indigo-500 font-semibold")}>
                     {data[s.name]}
                   </dd>
                 </div>

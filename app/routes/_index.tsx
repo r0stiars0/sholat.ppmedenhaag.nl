@@ -131,7 +131,7 @@ export default function Index() {
   const [data, setData] = useState(o.data);
 
   const [date, setDate] = useState(new Date());
-  const [period, setPeriod] = useState(o.period);
+  const [period, setPeriod] = useState(compareSchedules(new Date(), o.data));
   useEffect(() => {
     const timerID = setInterval(() => {
       setDate(new Date());
@@ -240,7 +240,7 @@ export default function Index() {
       </header>
 
       <main className=" mb-auto mx-auto max-w-xl px-6 lg:px-8 pb-20">
-        <div className="text-center">{period}</div>
+
         <div className="mx-auto text-center">
           <h1 className="text-base font-semibold text-indigo-700 dark:text-indigo-200">
             {date.toLocaleDateString("id-NL", options)}

@@ -271,8 +271,8 @@ export default function Index() {
                     className={clsx(
                       " text-base font-semibold",
                       period === s.description
-                        ? "text-indigo-100 dark:text-gray-800"
-                        : "text-gray-500 dark:text-gray-400"
+                        ? "text-indigo-100 dark:text-gray-800 font-bold"
+                        : "text-gray-500 dark:text-gray-400 font-semibold"
                     )}
                   >
                     {s.description}

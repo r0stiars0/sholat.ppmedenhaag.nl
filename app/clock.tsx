@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
 
 export function DigitalClock() {
+    const timeFormat = new Intl.DateTimeFormat("nl-NL", {
+        
+        hour: "2-digit",
+        minute:"2-digit",
+        second:"2-digit",
+        hourCycle: "h23"
+      });
   const [time, setTime] = useState<Date>(new Date());
 
   useEffect(() => {
@@ -15,7 +22,7 @@ export function DigitalClock() {
 
   return (
     <div className="text-gray-700 dark:text-gray-200 font-bold text-3xl bg-gray-50 dark:bg-gray-800 rounded-md px-2 py-1">
-      <span>{time.toLocaleTimeString("en-US", { hour12: false })}</span>
+      <span>{timeFormat.format(time)}</span>
     </div>
   );
 }

@@ -64,12 +64,21 @@ export async function loader() {
 
 function convertStringToDate(time: string) {
   let d = new Date();
+  const nlNL = new Intl.Locale("id-NL");
+
   d.setHours(parseInt(time.substring(0, 2)));
   d.setMinutes(parseInt(time.substring(3, 5)), 0, 0);
   return d;
 }
 
 export default function Index() {
+
+  const timeFormatHHmm = new Intl.DateTimeFormat("id-NL", {
+    hour: "2-digit",
+    minute:"2-digit",
+    hourCycle: "h23",
+  });
+
   const data = useLoaderData<typeof loader>();
 
   const dataInDateTime = {
@@ -81,7 +90,7 @@ export default function Index() {
     Maghrib: convertStringToDate(data.Maghrib),
     Isha: convertStringToDate(data.Isha),
   };
-  const date = new Date();
+  const [date,setDate] = useState(new Date());
   function getSholatSegment() {
     const date = new Date();
     switch (true) {
@@ -103,7 +112,7 @@ export default function Index() {
     weekday: "long",
     year: "numeric",
     month: "long",
-    day: "numeric",
+    day: "numeric"
   };
   const [period, setPeriod] = useState(getSholatSegment());
 

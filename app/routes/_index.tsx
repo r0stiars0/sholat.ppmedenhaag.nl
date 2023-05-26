@@ -292,7 +292,7 @@ export default function Index() {
           </dl>
         </div>
         <p className="mt-6 text-sm md:text-lg text-gray-600 dark:text-gray-300 text-center ">
-          "Sungguh, shalat itu adalah kewajiban yang ditentukan waktunya atas
+          "Sungguh, sholat itu adalah kewajiban yang ditentukan waktunya atas
           orang-orang yang beriman" - Al-Baqarah:43
         </p>
       </main>

@@ -132,7 +132,7 @@ export default function Index() {
 
   const [date, setDate] = useState(new Date());
 
-  const [period, setPeriod] = useState(o.period);
+  const [period, setPeriod] = useState("");
   useEffect(() => {
     const timerID = setInterval(() => {
       setDate(new Date());

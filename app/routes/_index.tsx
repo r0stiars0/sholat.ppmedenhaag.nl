@@ -92,6 +92,7 @@ export async function loader() {
       (d) => d.Day === currentDate.getDate()
     ) ?? DATA_NOT_FOUND;
   const data = mergeTimes(a);
+
   return json({ data: data, period: compareSchedules(currentDate, data) });
 }
 
@@ -118,7 +119,6 @@ function compareSchedules(d: Date, data: { FajrAsDate: Date; ShurukAsDate: Date;
       return SholatPeriods.Asr;
     case d >= data.MaghribAsDate && d < data.IshaAsDate:
       return SholatPeriods.Maghrib;
-
     case d >= data.IshaAsDate:
       return SholatPeriods.Isha;
   }
@@ -240,6 +240,7 @@ export default function Index() {
       </header>
 
       <main className=" mb-auto mx-auto max-w-xl px-6 lg:px-8 pb-20">
+        <div className="text-center">{period}</div>
         <div className="mx-auto text-center">
           <h1 className="text-base font-semibold text-indigo-700 dark:text-indigo-200">
             {date.toLocaleDateString("id-NL", options)}

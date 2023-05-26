@@ -293,7 +293,7 @@ export default function Index() {
         </div>
         <p className="mt-6 text-sm md:text-lg text-gray-600 dark:text-gray-300 text-center ">
           "Sungguh, sholat itu adalah kewajiban yang ditentukan waktunya atas
-          orang-orang yang beriman" - Al-Baqarah:43
+          orang-orang yang beriman" - An-Nisa:103
         </p>
       </main>
       <footer className="fixed bottom-0 left-0 z-50 w-full h-12 border-t border-gray-200 dark:bg-gray-700 dark:border-gray-600 bg-gray-50 text-center ">

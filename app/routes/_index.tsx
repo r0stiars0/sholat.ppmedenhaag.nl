@@ -303,7 +303,7 @@ export default function Index() {
         >
           PPME Den Haag
         </a>
-        <p className="text-sm text-gray-600 font-semibold">IBAN NL26 INGB 0002 1661 44</p>
+        <p className="text-sm text-gray-600 dark:text-gray-50 font-semibold">IBAN NL26 INGB 0002 1661 44</p>
       </footer>
     </div>
   );

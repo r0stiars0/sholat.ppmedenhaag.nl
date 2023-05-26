@@ -15,6 +15,6 @@ export async function loader({ params }: LoaderArgs) {
         (d) => d.Day === day
       ) ?? DATA_NOT_FOUND;
   
-    return json(a);
+    return json(a, { headers: { 'cache-control': 'no-cache' } });
   }
   

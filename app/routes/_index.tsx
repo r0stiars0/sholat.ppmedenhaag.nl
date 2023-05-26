@@ -93,7 +93,7 @@ export async function loader() {
     ) ?? DATA_NOT_FOUND;
   const data = mergeTimes(a);
 
-  return json({ data: data, period: compareSchedules(currentDate, data) });
+  return json({ data: data, period: compareSchedules(currentDate, data) },{ headers: { 'cache-control': 'no-cache' } });
 }
 
 function mergeTimes(d: { Day: number, Fajr: string; Shuruk: string; Duhr: string; Asr: string; Maghrib: string; Isha: string; }) {
@@ -131,7 +131,8 @@ export default function Index() {
   const [data, setData] = useState(o.data);
 
   const [date, setDate] = useState(new Date());
-  const [period, setPeriod] = useState(compareSchedules(new Date(), o.data));
+
+  const [period, setPeriod] = useState(o.period);
   useEffect(() => {
     const timerID = setInterval(() => {
       setDate(new Date());

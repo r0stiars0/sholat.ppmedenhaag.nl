@@ -204,7 +204,7 @@ export default function Index() {
 
 
       setPeriod(compareSchedules(new Date(), data));
-    }, 1000);
+    }, 200);
 
     return () => {
       clearInterval(timerID);

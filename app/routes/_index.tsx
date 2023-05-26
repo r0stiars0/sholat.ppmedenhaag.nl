@@ -81,13 +81,57 @@ function dateToString(date: Date) {
   });
   return { day: day, time: time };
 }
+export async function loader() {
+  const currentDate = new Date();
+  const yearMonth =
+    currentDate.toLocaleDateString("nl-NL", { year: "numeric", timeZone: "Europe/Amsterdam" }) +
+    "-" +
+    currentDate.toLocaleDateString("nl-NL", { month: "2-digit", timeZone: "Europe/Amsterdam" });
+  const a =
+    JADWAL_SHOLAT.find((month) => month.bulan === yearMonth)?.jadwal.find(
+      (d) => d.Day === currentDate.getDate()
+    ) ?? DATA_NOT_FOUND;
+  const data = mergeTimes(a);
+  return json({ data: data, period: compareSchedules(currentDate, data) });
+}
+
+function mergeTimes(d: { Day: number, Fajr: string; Shuruk: string; Duhr: string; Asr: string; Maghrib: string; Isha: string; }) {
+  return {
+    ...d,
+    ...{
+      FajrAsDate: convertStringToDate(d.Fajr),
+      ShurukAsDate: convertStringToDate(d.Shuruk),
+      DuhrAsDate: convertStringToDate(d.Duhr),
+      AsrAsDate: convertStringToDate(d.Asr),
+      MaghribAsDate: convertStringToDate(d.Maghrib),
+      IshaAsDate: convertStringToDate(d.Isha),
+    }
+  }
+}
+function compareSchedules(d: Date, data: { FajrAsDate: Date; ShurukAsDate: Date; DuhrAsDate: Date; AsrAsDate: Date; MaghribAsDate: Date; IshaAsDate: Date; }) {
+  switch (true) {
+    case d >= data.FajrAsDate && d < data.ShurukAsDate:
+      return SholatPeriods.Fajr;
+    case d >= data.DuhrAsDate && d < data.AsrAsDate:
+      return SholatPeriods.Duhr;
+    case d >= data.AsrAsDate && d < data.MaghribAsDate:
+      return SholatPeriods.Asr;
+    case d >= data.MaghribAsDate && d < data.IshaAsDate:
+      return SholatPeriods.Maghrib;
+
+    case d >= data.IshaAsDate:
+      return SholatPeriods.Isha;
+  }
+  return "";
+}
 
 export default function Index() {
+  const o = useLoaderData<typeof loader>();
   const f = useFetcher();
-  const [data, setData] = useState({});
-  const [dataInDateTime, setDataInDateTime] = useState(DATA_NOT_FOUND);
+  const [data, setData] = useState(o.data);
+
   const [date, setDate] = useState(new Date());
-  const [period, setPeriod] = useState("");
+  const [period, setPeriod] = useState(o.period);
   useEffect(() => {
     const timerID = setInterval(() => {
       setDate(new Date());
@@ -150,44 +194,15 @@ export default function Index() {
 
   useEffect(() => {
     if (f.data) {
-      console.log(`${f.data.Fajr}`);
-      setData({
-        ...f.data,
-        ...{
-          FajrAsDate: convertStringToDate(f.data.Fajr),
-          ShurukAsDate: convertStringToDate(f.data.Shuruk),
-          DuhrAsDate: convertStringToDate(f.data.Duhr),
-          AsrAsDate: convertStringToDate(f.data.Asr),
-          MaghribAsDate: convertStringToDate(f.data.Maghrib),
-          IshaAsDate: convertStringToDate(f.data.Isha),
-        },
-      });
+      setData(mergeTimes(f.data));
     }
   }, [f]);
 
   useEffect(() => {
     const timerID = setInterval(() => {
-      let p = "";
-      const d = new Date();
-      console.log(`${d} - ${data.AsrAsDate} - ${data.MaghribAsDate}`);
-      switch (true) {
-        case d >= data.FajrAsDate && d < data.ShurukAsDate:
-          p = SholatPeriods.Fajr;
-          break;
-        case d >= data.DuhrAsDate && d < data.AsrAsDate:
-          p = SholatPeriods.Duhr;
-          break;
-        case d >= data.AsrAsDate && d < data.MaghribAsDate:
-          p = SholatPeriods.Asr;
-          break;
-        case d >= data.MaghribAsDate && d < data.IshaAsDate:
-          p = SholatPeriods.Maghrib;
-          break;
-        case d >= data.IshaAsDate:
-          p = SholatPeriods.Isha;
-      }
 
-      setPeriod(p);
+
+      setPeriod(compareSchedules(new Date(), data));
     }, 1000);
 
     return () => {
@@ -212,23 +227,19 @@ export default function Index() {
   };
 
   useEffect(() => {
-    const interval = setInterval(() => {}, 1000);
+    const interval = setInterval(() => { }, 1000);
     return () => clearInterval(interval);
   }, []);
 
   return (
     <div className="flex flex-col  justify-between">
       <header className="h-10 text-center">
-        <h2 className="text-base font-semibold leading-7 text-gray-600 dark:text-gray-100">
-          Jadwal Sholat{" "}
-          <span className="text-xl text-indigo-900 dark:text-indigo-100">
-            {period}
-          </span>{" "}
-          untuk Den Haag
+        <h2 className="text-base font-semibold leading-7 text-gray-600 dark:text-gray-100 py-2">
+          Jadwal Sholat untuk Area Den Haag
         </h2>
       </header>
 
-      <main className=" mb-auto mx-auto max-w-xl px-6 lg:px-8 pb-2">
+      <main className=" mb-auto mx-auto max-w-xl px-6 lg:px-8 pb-20">
         <div className="mx-auto text-center">
           <h1 className="text-base font-semibold text-indigo-700 dark:text-indigo-200">
             {date.toLocaleDateString("id-NL", options)}
@@ -250,15 +261,15 @@ export default function Index() {
                 <div
                   key={s.name}
                   className={clsx(
-                    "relative border rounded-md text-center",
-                    period === s.description && "bg-gray-100 dark:bg-gray-800"
+                    "relative rounded-md text-center ",
+                    period === s.description ? "bg-indigo-800 dark:bg-indigo-100 border-none py-1" : "border"
                   )}
                 >
                   <dt
                     className={clsx(
                       " text-base font-semibold",
-                      period === s.name
-                        ? "text-gray-900 dark:text-gray-100"
+                      period === s.description
+                        ? "text-gray-300 dark:text-gray-800"
                         : "text-gray-500 dark:text-gray-400"
                     )}
                   >
@@ -266,10 +277,10 @@ export default function Index() {
                   </dt>
                   <dd
                     className={clsx(
-                      "mb-2 text-2xl",
-                      period === s.name
-                        ? "text-indigo-700 dark:text-indigo-50 font-bold"
-                        : "text-indigo-500  dark:text-indigo-300 font-semibold"
+                      "mb-1 ",
+                      period === s.description
+                        ? "text-gray-200 text-2xl dark:text-gray-900 font-bold "
+                        : "text-indigo-600 text-xl  dark:text-indigo-300 font-semibold"
                     )}
                   >
                     {data[s.name]}
@@ -278,7 +289,7 @@ export default function Index() {
               ))}
           </dl>
         </div>
-        <p className="mt-6 text-sm md:text-lg text-gray-600 dark:text-gray-300 text-center">
+        <p className="mt-6 text-sm md:text-lg text-gray-600 dark:text-gray-300 text-center ">
           "Sungguh, shalat itu adalah kewajiban yang ditentukan waktunya atas
           orang-orang yang beriman" - Al-Baqarah:43
         </p>
@@ -290,6 +301,7 @@ export default function Index() {
         >
           PPME Den Haag
         </a>
+        <p className="text-sm text-gray-600 font-semibold">IBAN NL26 INGB 0002 1661 44</p>
       </footer>
     </div>
   );

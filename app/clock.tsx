@@ -22,7 +22,7 @@ export function DigitalClock() {
   }, []);
 
   return (
-    <div className="text-gray-700 dark:text-gray-200 font-bold text-3xl bg-gray-50 dark:bg-gray-800 rounded-md px-2 py-1">
+    <div className="text-gray-700 dark:text-gray-200 font-bold text-2xl bg-gray-50 dark:bg-gray-800 rounded-md px-2 py-1">
       <span>{time && time.toLocaleTimeString('nl-NL',{
         
         hour: "2-digit",

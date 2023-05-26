@@ -263,8 +263,8 @@ export default function Index() {
                 <div
                   key={s.name}
                   className={clsx(
-                    "relative rounded-md text-center ",
-                    period === s.description ? "bg-indigo-800 dark:bg-indigo-100 border-none py-1" : "border"
+                    "relative rounded-md text-center border",
+                    period === s.description ? "bg-indigo-800 dark:bg-indigo-100  " : ""
                   )}
                 >
                   <dt
@@ -279,10 +279,10 @@ export default function Index() {
                   </dt>
                   <dd
                     className={clsx(
-                      "mb-1 ",
+                      "mb-1 text-xl",
                       period === s.description
-                        ? "text-indigo-50 text-2xl dark:text-gray-900 font-bold "
-                        : "text-indigo-600 text-xl  dark:text-indigo-300 font-semibold"
+                        ? "text-indigo-50  dark:text-gray-900 font-bold "
+                        : "text-indigo-600   dark:text-indigo-300 font-semibold"
                     )}
                   >
                     {data[s.name]}

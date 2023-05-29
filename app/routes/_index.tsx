@@ -65,6 +65,12 @@ const dateFormat = new Intl.DateTimeFormat("nl-NL", {
   hourCycle: "h23",
   timeZoneName: "short",
 });
+const durationFormat = new Intl.DateTimeFormat("nl-NL", {
+  hour: "2-digit",
+  minute: "2-digit",
+  second: "2-digit",
+  hourCycle: "h23",
+});
 
 function dateToString(date: Date) {
   const day =
@@ -110,19 +116,21 @@ function mergeTimes(d: { Day: number, Fajr: string; Shuruk: string; Duhr: string
   }
 }
 function compareSchedules(d: Date, data: { FajrAsDate: Date; ShurukAsDate: Date; DuhrAsDate: Date; AsrAsDate: Date; MaghribAsDate: Date; IshaAsDate: Date; }) {
+  let durationTime = new Date();
   switch (true) {
     case d >= data.FajrAsDate && d < data.ShurukAsDate:
-      return SholatPeriods.Fajr;
+      return {period:SholatPeriods.Fajr, start:data.FajrAsDate,end:data.ShurukAsDate, next:""};
     case d >= data.DuhrAsDate && d < data.AsrAsDate:
-      return SholatPeriods.Duhr;
+      return {period:SholatPeriods.Duhr, start:data.DuhrAsDate,end:data.AsrAsDate, next:SholatPeriods.Asr};
     case d >= data.AsrAsDate && d < data.MaghribAsDate:
-      return SholatPeriods.Asr;
+      return {period:SholatPeriods.Asr,start:data.AsrAsDate,end:data.MaghribAsDate,next:SholatPeriods.Maghrib};
     case d >= data.MaghribAsDate && d < data.IshaAsDate:
-      return SholatPeriods.Maghrib;
+      durationTime.setTime(data.IshaAsDate.getTime()-d.getTime());
+      return {period:SholatPeriods.Maghrib,start:data.MaghribAsDate,end:data.IshaAsDate, next:SholatPeriods.Isha, remaining:durationFormat.format(durationTime)};
     case d >= data.IshaAsDate:
-      return SholatPeriods.Isha;
+      return {period:SholatPeriods.Isha,start:data.IshaAsDate};
   }
-  return "";
+  return {period:""};
 }
 
 export default function Index() {
@@ -132,7 +140,9 @@ export default function Index() {
 
   const [date, setDate] = useState(new Date());
 
-  const [period, setPeriod] = useState("");
+  const [period, setPeriod] = useState({period:"",start:null,end:null,next:null});
+
+  const [message,setMessage] = useState("");
   useEffect(() => {
     const timerID = setInterval(() => {
       setDate(new Date());
@@ -227,10 +237,6 @@ export default function Index() {
     timezone: "Europe/Amsterdam",
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => { }, 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <div className="flex flex-col  justify-between">
@@ -264,13 +270,13 @@ export default function Index() {
                   key={s.name}
                   className={clsx(
                     "relative rounded-md text-center border",
-                    period === s.description ? "bg-indigo-800 dark:bg-indigo-100  " : ""
+                    period.period === s.description ? "bg-indigo-800 dark:bg-indigo-100  " : ""
                   )}
                 >
                   <dt
                     className={clsx(
                       " text-base font-semibold",
-                      period === s.description
+                      period.period === s.description
                         ? "text-indigo-100 dark:text-gray-800 font-bold"
                         : "text-gray-500 dark:text-gray-400 font-semibold"
                     )}
@@ -280,7 +286,7 @@ export default function Index() {
                   <dd
                     className={clsx(
                       "mb-1 text-xl",
-                      period === s.description
+                      period.period === s.description
                         ? "text-indigo-50  dark:text-gray-900 font-bold "
                         : "text-indigo-600   dark:text-indigo-300 font-semibold"
                     )}
@@ -291,6 +297,7 @@ export default function Index() {
               ))}
           </dl>
         </div>
+        <div className="my-4 p-2 text-sm border w-full h-16">{period && period.remaining && period.remaining}</div>
         <p className="mt-6 text-sm md:text-lg text-gray-600 dark:text-gray-300 text-center ">
           "Sungguh, sholat itu adalah kewajiban yang ditentukan waktunya atas
           orang-orang yang beriman" - An-Nisa:103

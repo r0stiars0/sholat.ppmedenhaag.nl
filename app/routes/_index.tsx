@@ -18,6 +18,7 @@ export const meta: V2_MetaFunction = () => {
 
 enum SholatPeriods {
   Fajr = "Subuh",
+  Shuruk = "Shuruk",
   Duhr = "Dzuhur",
   Asr = "Ashar",
   Maghrib = "Maghrib",
@@ -119,11 +120,14 @@ function compareSchedules(d: Date, data: { FajrAsDate: Date; ShurukAsDate: Date;
   let durationTime = new Date();
   switch (true) {
     case d >= data.FajrAsDate && d < data.ShurukAsDate:
-      return {period:SholatPeriods.Fajr, start:data.FajrAsDate,end:data.ShurukAsDate, next:""};
+      durationTime.setTime(data.ShurukAsDate.getTime()-d.getTime());
+      return {period:SholatPeriods.Fajr, start:data.FajrAsDate,end:data.ShurukAsDate,next:SholatPeriods.Shuruk,remaining:durationFormat.format(durationTime)};
     case d >= data.DuhrAsDate && d < data.AsrAsDate:
-      return {period:SholatPeriods.Duhr, start:data.DuhrAsDate,end:data.AsrAsDate, next:SholatPeriods.Asr};
+      durationTime.setTime(data.AsrAsDate.getTime()-d.getTime());
+      return {period:SholatPeriods.Duhr, start:data.DuhrAsDate,end:data.AsrAsDate, next:SholatPeriods.Asr,remaining:durationFormat.format(durationTime)};      
     case d >= data.AsrAsDate && d < data.MaghribAsDate:
-      return {period:SholatPeriods.Asr,start:data.AsrAsDate,end:data.MaghribAsDate,next:SholatPeriods.Maghrib};
+      durationTime.setTime(data.MaghribAsDate.getTime()-d.getTime());
+      return {period:SholatPeriods.Asr,start:data.AsrAsDate,end:data.MaghribAsDate,next:SholatPeriods.Maghrib,remaining:durationFormat.format(durationTime)};
     case d >= data.MaghribAsDate && d < data.IshaAsDate:
       durationTime.setTime(data.IshaAsDate.getTime()-d.getTime());
       return {period:SholatPeriods.Maghrib,start:data.MaghribAsDate,end:data.IshaAsDate, next:SholatPeriods.Isha, remaining:durationFormat.format(durationTime)};
@@ -221,11 +225,6 @@ export default function Index() {
     };
   }, [data]);
 
-  const timeFormatHHmm = new Intl.DateTimeFormat("id-NL", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hourCycle: "h23",
-  });
 
   // const data = useLoaderData<typeof loader>();
 
@@ -297,7 +296,9 @@ export default function Index() {
               ))}
           </dl>
         </div>
-        <div className="my-4 p-2 text-sm border w-full h-16">{period && period.remaining && period.remaining}</div>
+        <div className="mt-2 text-sm w-full h-8 md:h-12 text-center">{period && period.remaining && <> Test ⚠️ sisa waktu <span className="font-mono inline-flex items-center rounded-md bg-indigo-100 px-1.5 py-0.5 text-xs font-medium text-indigo-700">
+        {period.remaining}
+      </span> sebelum {period.next}</>} </div>
         <p className="mt-6 text-sm md:text-lg text-gray-600 dark:text-gray-300 text-center ">
           "Sungguh, sholat itu adalah kewajiban yang ditentukan waktunya atas
           orang-orang yang beriman" - An-Nisa:103

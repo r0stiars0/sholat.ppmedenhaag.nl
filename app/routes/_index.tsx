@@ -217,6 +217,8 @@ export default function Index() {
     hourCycle: "h23",
   });
 
+  const hijriFormat = new Intl.DateTimeFormat('id-TN-u-ca-islamic', {day: 'numeric', month: 'long',year : 'numeric'});
+
   // const data = useLoaderData<typeof loader>();
 
   const options = {
@@ -244,7 +246,7 @@ export default function Index() {
 
         <div className="mx-auto text-center">
           <h1 className="text-base font-semibold text-indigo-700 dark:text-indigo-200">
-            {date.toLocaleDateString("id-NL", options)}
+            {date.toLocaleDateString("id-NL", options)} | {hijriFormat.format(date)}
           </h1>
 
           <DigitalClock />

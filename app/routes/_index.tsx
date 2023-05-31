@@ -9,8 +9,8 @@ import { useEffect, useState } from "react";
 
 import { useFetcher, useLoaderData } from "@remix-run/react";
 import { DATA_NOT_FOUND, JADWAL_SHOLAT } from "~/model/jadwal.server";
-import { DigitalClock } from "~/clock";
 import clsx from "clsx";
+import prettyMilliseconds from "pretty-ms";
 
 export const meta: V2_MetaFunction = () => {
   return [{ title: "Jadwal Sholat Den Haag" }];
@@ -18,6 +18,7 @@ export const meta: V2_MetaFunction = () => {
 
 enum SholatPeriods {
   Fajr = "Subuh",
+  Shuruk = "Shuruk",
   Duhr = "Dzuhur",
   Asr = "Ashar",
   Maghrib = "Maghrib",
@@ -65,7 +66,20 @@ const dateFormat = new Intl.DateTimeFormat("nl-NL", {
   hourCycle: "h23",
   timeZoneName: "short",
 });
-
+const durationFormat = new Intl.DateTimeFormat("nl-NL", {
+  hour: "2-digit",
+  minute: "2-digit",
+  second: "2-digit",
+  hourCycle: "h23",
+});
+const timeFormat = new Intl.DateTimeFormat("nl-NL", {
+        
+  hour: "2-digit",
+  minute:"2-digit",
+  second:"2-digit",
+  hourCycle: "h23",
+  timeZoneName:"short"
+});
 function dateToString(date: Date) {
   const day =
     date.toLocaleDateString("nl-NL", { year: "numeric" }) +
@@ -110,19 +124,26 @@ function mergeTimes(d: { Day: number, Fajr: string; Shuruk: string; Duhr: string
   }
 }
 function compareSchedules(d: Date, data: { FajrAsDate: Date; ShurukAsDate: Date; DuhrAsDate: Date; AsrAsDate: Date; MaghribAsDate: Date; IshaAsDate: Date; }) {
+  let durationTimeInMS:number = 0;
+  const option = {colonNotation: true}
   switch (true) {
     case d >= data.FajrAsDate && d < data.ShurukAsDate:
-      return SholatPeriods.Fajr;
+
+    durationTimeInMS=data.ShurukAsDate.getTime()-d.getTime();
+      return {period:SholatPeriods.Fajr, start:data.FajrAsDate,end:data.ShurukAsDate,next:SholatPeriods.Shuruk,remaining:prettyMilliseconds(Math.ceil(durationTimeInMS/1000)*1000,option)};
     case d >= data.DuhrAsDate && d < data.AsrAsDate:
-      return SholatPeriods.Duhr;
+      durationTimeInMS=data.AsrAsDate.getTime()-d.getTime();
+      return {period:SholatPeriods.Duhr, start:data.DuhrAsDate,end:data.AsrAsDate, next:SholatPeriods.Asr,remaining:prettyMilliseconds(Math.ceil(durationTimeInMS/1000)*1000,option)};      
     case d >= data.AsrAsDate && d < data.MaghribAsDate:
-      return SholatPeriods.Asr;
+      durationTimeInMS =data.MaghribAsDate.getTime()-d.getTime();
+      return {period:SholatPeriods.Asr,start:data.AsrAsDate,end:data.MaghribAsDate,next:SholatPeriods.Maghrib,remaining:prettyMilliseconds(Math.ceil(durationTimeInMS/1000)*1000,option)};
     case d >= data.MaghribAsDate && d < data.IshaAsDate:
-      return SholatPeriods.Maghrib;
+      durationTimeInMS = data.IshaAsDate.getTime()-d.getTime();
+      return {period:SholatPeriods.Maghrib,start:data.MaghribAsDate,end:data.IshaAsDate, next:SholatPeriods.Isha, remaining:prettyMilliseconds(Math.ceil(durationTimeInMS/1000)*1000,option)};
     case d >= data.IshaAsDate:
-      return SholatPeriods.Isha;
+      return {period:SholatPeriods.Isha,start:data.IshaAsDate};
   }
-  return "";
+  return {period:""};
 }
 
 export default function Index() {
@@ -132,7 +153,9 @@ export default function Index() {
 
   const [date, setDate] = useState(new Date());
 
-  const [period, setPeriod] = useState("");
+  const [period, setPeriod] = useState({period:"",start:null,end:null,next:null});
+
+  const [message,setMessage] = useState("");
   useEffect(() => {
     const timerID = setInterval(() => {
       setDate(new Date());
@@ -201,9 +224,10 @@ export default function Index() {
 
   useEffect(() => {
     const timerID = setInterval(() => {
+      const d=new Date();
+      setDate(d)
 
-
-      setPeriod(compareSchedules(new Date(), data));
+      setPeriod(compareSchedules(d, data));
     }, 200);
 
     return () => {
@@ -211,11 +235,6 @@ export default function Index() {
     };
   }, [data]);
 
-  const timeFormatHHmm = new Intl.DateTimeFormat("id-NL", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hourCycle: "h23",
-  });
 
   // const data = useLoaderData<typeof loader>();
 
@@ -227,10 +246,6 @@ export default function Index() {
     timezone: "Europe/Amsterdam",
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => { }, 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <div className="flex flex-col  justify-between">
@@ -247,7 +262,16 @@ export default function Index() {
             {date.toLocaleDateString("id-NL", options)}
           </h1>
 
-          <DigitalClock />
+          <div className="text-gray-700 dark:text-gray-200 font-bold text-2xl bg-gray-50 dark:bg-gray-800 rounded-md px-2 py-1">
+      <span>{date && date.toLocaleTimeString('nl-NL',{
+        
+        hour: "2-digit",
+        minute:"2-digit",
+        second:"2-digit",
+        hourCycle: "h23",
+        timeZone: "Europe/Amsterdam"
+      })}</span>
+    </div>
         </div>
         <div className="mx-auto mt-6 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
           <dl className="grid grid-cols-1 gap-x-2 gap-y-2 lg:max-w-none  lg:gap-y-4">
@@ -264,13 +288,13 @@ export default function Index() {
                   key={s.name}
                   className={clsx(
                     "relative rounded-md text-center border",
-                    period === s.description ? "bg-indigo-800 dark:bg-indigo-100  " : ""
+                    period.period === s.description ? "bg-indigo-800 dark:bg-indigo-100  " : ""
                   )}
                 >
                   <dt
                     className={clsx(
                       " text-base font-semibold",
-                      period === s.description
+                      period.period === s.description
                         ? "text-indigo-100 dark:text-gray-800 font-bold"
                         : "text-gray-500 dark:text-gray-400 font-semibold"
                     )}
@@ -280,7 +304,7 @@ export default function Index() {
                   <dd
                     className={clsx(
                       "mb-1 text-xl",
-                      period === s.description
+                      period.period === s.description
                         ? "text-indigo-50  dark:text-gray-900 font-bold "
                         : "text-indigo-600   dark:text-indigo-300 font-semibold"
                     )}
@@ -291,6 +315,9 @@ export default function Index() {
               ))}
           </dl>
         </div>
+        <div className="mt-2 text-sm w-full h-8 md:h-12 text-center">{period && period.remaining && <> Terdapat sisa waktu <span className="font-mono inline-flex items-center rounded-md bg-indigo-100 px-1.5 py-0.5 text-xs font-medium text-indigo-700">
+        {period.remaining}
+      </span> sebelum {period.next}</>} </div>
         <p className="mt-6 text-sm md:text-lg text-gray-600 dark:text-gray-300 text-center ">
           "Sungguh, sholat itu adalah kewajiban yang ditentukan waktunya atas
           orang-orang yang beriman" - An-Nisa:103

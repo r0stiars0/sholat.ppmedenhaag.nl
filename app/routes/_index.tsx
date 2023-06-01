@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { useFetcher, useLoaderData } from "@remix-run/react";
 import { DATA_NOT_FOUND, JADWAL_SHOLAT } from "~/model/jadwal.server";
 import clsx from "clsx";
-import prettyMilliseconds from "pretty-ms";
+
 
 export const meta: V2_MetaFunction = () => {
   return [{ title: "Jadwal Sholat Den Haag" }];
@@ -123,23 +123,26 @@ function mergeTimes(d: { Day: number, Fajr: string; Shuruk: string; Duhr: string
     }
   }
 }
+function minutesUnder1Hour(durationInMS:number)
+{
+  return durationInMS>60000 && durationInMS<3600000 ? Math.ceil(durationInMS/60/1000) : undefined;
+}
 function compareSchedules(d: Date, data: { FajrAsDate: Date; ShurukAsDate: Date; DuhrAsDate: Date; AsrAsDate: Date; MaghribAsDate: Date; IshaAsDate: Date; }) {
   let durationTimeInMS:number = 0;
-  const option = {colonNotation: true}
   switch (true) {
     case d >= data.FajrAsDate && d < data.ShurukAsDate:
 
     durationTimeInMS=data.ShurukAsDate.getTime()-d.getTime();
-      return {period:SholatPeriods.Fajr, start:data.FajrAsDate,end:data.ShurukAsDate,next:SholatPeriods.Shuruk,remaining:prettyMilliseconds(Math.ceil(durationTimeInMS/1000)*1000,option)};
+      return {period:SholatPeriods.Fajr, start:data.FajrAsDate,end:data.ShurukAsDate,next:SholatPeriods.Shuruk,remaining:minutesUnder1Hour(durationTimeInMS)};
     case d >= data.DuhrAsDate && d < data.AsrAsDate:
       durationTimeInMS=data.AsrAsDate.getTime()-d.getTime();
-      return {period:SholatPeriods.Duhr, start:data.DuhrAsDate,end:data.AsrAsDate, next:SholatPeriods.Asr,remaining:prettyMilliseconds(Math.ceil(durationTimeInMS/1000)*1000,option)};      
+      return {period:SholatPeriods.Duhr, start:data.DuhrAsDate,end:data.AsrAsDate, next:SholatPeriods.Asr,remaining:minutesUnder1Hour(durationTimeInMS)};      
     case d >= data.AsrAsDate && d < data.MaghribAsDate:
       durationTimeInMS =data.MaghribAsDate.getTime()-d.getTime();
-      return {period:SholatPeriods.Asr,start:data.AsrAsDate,end:data.MaghribAsDate,next:SholatPeriods.Maghrib,remaining:prettyMilliseconds(Math.ceil(durationTimeInMS/1000)*1000,option)};
+      return {period:SholatPeriods.Asr,start:data.AsrAsDate,end:data.MaghribAsDate,next:SholatPeriods.Maghrib,remaining:minutesUnder1Hour(durationTimeInMS)};
     case d >= data.MaghribAsDate && d < data.IshaAsDate:
       durationTimeInMS = data.IshaAsDate.getTime()-d.getTime();
-      return {period:SholatPeriods.Maghrib,start:data.MaghribAsDate,end:data.IshaAsDate, next:SholatPeriods.Isha, remaining:prettyMilliseconds(Math.ceil(durationTimeInMS/1000)*1000,option)};
+      return {period:SholatPeriods.Maghrib,start:data.MaghribAsDate,end:data.IshaAsDate, next:SholatPeriods.Isha, remaining:minutesUnder1Hour(durationTimeInMS)};
     case d >= data.IshaAsDate:
       return {period:SholatPeriods.Isha,start:data.IshaAsDate};
   }
@@ -317,7 +320,7 @@ export default function Index() {
         </div>
         <div className="mt-2 text-sm w-full h-8 md:h-12 text-center">{period && period.remaining && <> Terdapat sisa waktu <span className="font-mono inline-flex items-center rounded-md bg-indigo-100 px-1.5 py-0.5 text-xs font-medium text-indigo-700">
         {period.remaining}
-      </span> sebelum {period.next}</>} </div>
+      </span> menit sebelum {period.next}</>} </div>
         <p className="mt-6 text-sm md:text-lg text-gray-600 dark:text-gray-300 text-center ">
           "Sungguh, sholat itu adalah kewajiban yang ditentukan waktunya atas
           orang-orang yang beriman" - An-Nisa:103

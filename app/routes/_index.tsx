@@ -125,7 +125,7 @@ function mergeTimes(d: { Day: number, Fajr: string; Shuruk: string; Duhr: string
 }
 function minutesUnder1Hour(durationInMS:number)
 {
-  return durationInMS>60000 && durationInMS<3600000 ? Math.ceil(durationInMS/60/1000) : undefined;
+  return durationInMS>60000 && durationInMS<3600000 ? Math.floor(durationInMS/60/1000) : undefined;
 }
 function compareSchedules(d: Date, data: { FajrAsDate: Date; ShurukAsDate: Date; DuhrAsDate: Date; AsrAsDate: Date; MaghribAsDate: Date; IshaAsDate: Date; }) {
   let durationTimeInMS:number = 0;
@@ -251,14 +251,17 @@ export default function Index() {
 
 
   return (
-    <div className="flex flex-col  justify-between">
-      <header className="h-10 text-center">
-        <h2 className="text-base font-semibold leading-7 text-gray-600 dark:text-gray-100 py-2">
-          Jadwal Sholat untuk Area Den Haag
+    <div className="flex flex-col  justify-between mx-auto text-center">
+      <header className="flex pt-4 pb-2 items-center mx-auto justify-between gap-x-4 lg:gap-x-4 max-w-2xl lg:max-w-4xl border-b">
+        
+        <img src="ppmedenhaag.png" className="h-8 w-auto flex-none justify-start" alt="PPME Den Haag"/>
+
+        <h2 className="grow text-base font-semibold leading-7 text-gray-600 dark:text-gray-100  justify-end">
+          Jadwal Sholat Area Den Haag
         </h2>
       </header>
 
-      <main className=" mb-auto mx-auto max-w-xl px-6 lg:px-8 pb-20">
+      <main className=" mb-auto mx-auto max-w-xl px-6 lg:px-8 pt-2 pb-20">
 
         <div className="mx-auto text-center">
           <h1 className="text-base font-semibold text-indigo-700 dark:text-indigo-200">
@@ -318,7 +321,7 @@ export default function Index() {
               ))}
           </dl>
         </div>
-        <div className="mt-2 text-sm w-full h-8 md:h-12 text-center">{period && period.remaining && <> Terdapat sisa waktu <span className="font-mono inline-flex items-center rounded-md bg-indigo-100 px-1.5 py-0.5 text-xs font-medium text-indigo-700">
+        <div className="mt-2 text-sm w-full h-8 md:h-12 text-center">{period && period.remaining && <><span className="font-mono inline-flex items-center rounded-md bg-indigo-100 px-1.5 py-0.5 text-xs font-medium text-indigo-700">
         {period.remaining}
       </span> menit sebelum {period.next}</>} </div>
         <p className="mt-6 text-sm md:text-lg text-gray-600 dark:text-gray-300 text-center ">

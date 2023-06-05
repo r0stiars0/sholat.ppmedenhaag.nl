@@ -282,7 +282,7 @@ export default function IframePage() {
                 <div
                   key={s.name}
                   className={clsx(
-                    "relative text-center text-zinc-700 border-y pt-1", idx===0 && "rounded-bl-md border-l", idx===4 && "rounded-br-md border-r", idx<4 && "border-l",
+                    "relative text-center text-zinc-700 border-y pt-1 border-l", idx===0 && "rounded-bl-md", idx===4 && "rounded-br-md border-r",
                     period.period === s.description ? "bg-indigo-800 text-white" : ""
                   )}
                 >

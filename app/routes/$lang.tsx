@@ -290,7 +290,7 @@ export default function IframePage() {
                     className={clsx(
                       " text-sm font-semibold",
                       period.period === s.description
-                        ? "text-indigo-100 font-bold"
+                        ? "text-white font-bold"
                         : "text-gray-500 font-semibold"
                     )}
                   >

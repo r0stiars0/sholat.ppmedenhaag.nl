@@ -264,8 +264,8 @@ export default function IframePage() {
         <div className={clsx(data ? "mx-auto mt-2  lg:mt-2 lg:max-w-4xl px-1 " : "hidden")}>
 
           <div className="text-center border-x border-t rounded-tl-md rounded-tr-md grid grid-cols-1 p-1 bg-zinc-50">
-            <div className="text-sm text-zinc-600">{stringMessage[lang]}</div>
-            <h1 className="text-base font-semibold text-zinc-800 ">
+            <div className="text-base text-indigo-700 font-semibold">{stringMessage[lang]}</div>
+            <h1 className="text-base italic font-semibold text-zinc-800 ">
             {date.toLocaleDateString(lang||"-NL", options)}
           </h1>          
           </div>

@@ -20,7 +20,7 @@ export const JADWAL_SHOLAT =
                     "Shuruk": "08:45",
                     "Duhr": "12:54",
                     "Asr": "14:29",
-                    "Maghrib": "16:48",
+                    "Maghrib": "16:47",
                     "Isha": "18:44"
                 },
                 {

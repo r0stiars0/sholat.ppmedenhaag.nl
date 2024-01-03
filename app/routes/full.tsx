@@ -21,7 +21,7 @@ export default function FullSchedule() {
   const nlFormat = new Intl.DateTimeFormat('nl-NL', {month:"long"});
 
   const idDayFormat = new Intl.DateTimeFormat('id-ID', {weekday:"long"});
-  const nlDayFormat = new Intl.DateTimeFormat('nl-NL', {weekday:"long"});
+  const nlDayFormat = new Intl.DateTimeFormat('nl-NL', {weekday:"short"});
 
 
   

@@ -35,7 +35,7 @@ export default function FullSchedule() {
           alt="PPME Den Haag"
         />
 
-        <h2 className="grow text-base font-semibold leading-7 text-gray-600 dark:text-gray-100  justify-end">
+        <h2 className="grow text-base font-semibold leading-7 text-gray-600 justify-end">
           Jadwal Sholat Area Den Haag {year}
         </h2>
       </div>
@@ -46,8 +46,8 @@ export default function FullSchedule() {
           schedule.map((m) => 
           <div key={m.bulan} className="pt-8 pb-2">
             <h2 className="text-xl font-semibold py-2">{idFormat.format(new Date(m.bulan+"-01"))} / {nlFormat.format(new Date(m.bulan+"-01"))}</h2>
-            <table className="table-auto border border-collapse   border-indigo-800 text-xs md:text-base">
-              <thead><tr className="font-thin">
+            <table className="table-auto border border-collapse   border-indigo-800 text-xs md:text-base text-zinc-800">
+              <thead><tr className="font-thin text-zinc-800">
               <th className=" border border-indigo-800 px-1">Dag</th>
               <th className="border border-indigo-800 px-1">Subuh</th>
               <th className="border border-indigo-800 px-1">Dzuhur</th>
@@ -57,11 +57,11 @@ export default function FullSchedule() {
               </tr></thead>
               <tbody>
               {m.jadwal.map(d => 
-              <tr key={d.Day} className="">
+              <tr key={d.Day} className="text-zinc-700">
                 <td className="border border-indigo-800 px-1">
                   <div className="flex flex-auto items-center divide-x divide-indigo-500">
                   <div className="w-12 text-xl font-semibold text-center">{d.Day}</div>
-                  <div className="w-full grid grid-cols-1 divide-y divide-indigo-500 px-1 text-center">
+                  <div className="w-full text-sm font-medium grid grid-cols-1 divide-y divide-indigo-500 px-1 text-center">
                     <span>{idDayFormat.format(new Date(m.bulan+"-"+d.Day.toLocaleString(undefined,{minimumIntegerDigits:2})))}</span>
                   <span>{nlDayFormat.format(new Date(m.bulan+"-"+d.Day.toLocaleString(undefined,{minimumIntegerDigits:2})))}</span>
                   </div>

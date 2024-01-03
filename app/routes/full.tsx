@@ -1,5 +1,5 @@
 import { json, LoaderArgs, LoaderFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 
 import { JADWAL_SHOLAT } from "~/model/jadwal.server";
 
@@ -39,13 +39,19 @@ export default function FullSchedule() {
           Jadwal Sholat Area Den Haag {year}
         </h2>
       </div>
+      <ol className="text-zinc-800  list-decimal mx-auto pt-8 pb-2">
+        {schedule &&
+          schedule.length > 0 &&
+          schedule.map((m) => 
+          <li key={m.bulan} className=" px-1 py-0.5  disc text-sm md:text-lg font-semibold text-left"><Link className="px-1  bg-gray-50 text-indigo-700 border-b border-b-indigo-700" to={`/full#${m.bulan}`}>{idFormat.format(new Date(m.bulan+"-01"))} / {nlFormat.format(new Date(m.bulan+"-01"))}</Link></li>
+)}</ol>
 
       <div className="text-zinc-800 mb-auto mx-auto md:max-w-6xl px-6 lg:px-8 pt-2 pb-20">
         {schedule &&
           schedule.length > 0 &&
           schedule.map((m) => 
           <div key={m.bulan} className="pt-8 pb-2">
-            <h2 className="text-xl font-semibold py-2">{idFormat.format(new Date(m.bulan+"-01"))} / {nlFormat.format(new Date(m.bulan+"-01"))}</h2>
+            <h2 id={m.bulan} className="text-xl font-semibold py-2">{idFormat.format(new Date(m.bulan+"-01"))} / {nlFormat.format(new Date(m.bulan+"-01"))}</h2>
             <table className="table-auto border border-collapse   border-indigo-800 text-xs md:text-base text-zinc-800">
               <thead><tr className="font-thin text-zinc-800 text-xs md:text-base">
               <th className=" border border-indigo-800 px-1">Tanggal / dag</th>

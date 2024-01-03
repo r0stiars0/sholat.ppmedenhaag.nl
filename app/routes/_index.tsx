@@ -256,7 +256,7 @@ export default function Index() {
         
         <img src="ppmedenhaag.png" className="h-8 w-auto flex-none justify-start" alt="PPME Den Haag"/>
 
-        <h2 className="grow text-base font-semibold leading-7 text-gray-600 dark:text-gray-100  justify-end">
+        <h2 className="grow text-base font-semibold leading-7 text-gray-600 justify-end">
           Jadwal Sholat Area Den Haag
         </h2>
       </header>
@@ -264,11 +264,11 @@ export default function Index() {
       <main className=" mb-auto mx-auto max-w-xl px-6 lg:px-8 pt-2 pb-20">
 
         <div className="mx-auto text-center">
-          <h1 className="text-base font-semibold text-indigo-700 dark:text-indigo-200">
+          <h1 className="text-base font-semibold text-indigo-700">
             {date.toLocaleDateString("id-NL", options)}
           </h1>
 
-          <div className="text-gray-700 dark:text-gray-200 font-bold text-2xl bg-gray-50 dark:bg-gray-800 rounded-md px-2 py-1">
+          <div className="text-gray-700  font-bold text-2xl bg-gray-50  rounded-md px-2 py-1">
       <span>{date && date.toLocaleTimeString('nl-NL',{
         
         hour: "2-digit",
@@ -282,7 +282,7 @@ export default function Index() {
         <div className="mx-auto mt-6 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
           <dl className="grid grid-cols-1 gap-x-2 gap-y-2 lg:max-w-none  lg:gap-y-4">
             {data && data.Day === -1 && (
-              <h1 className="text-base font-semibold text-gray-600 dark:text-gray-300 text-center">
+              <h1 className="text-base font-semibold text-gray-600 text-center">
                 Maaf, jadwal sholat tidak tersedia.
               </h1>
             )}
@@ -294,15 +294,15 @@ export default function Index() {
                   key={s.name}
                   className={clsx(
                     "relative rounded-md text-center border",
-                    period.period === s.description ? "bg-indigo-800 dark:bg-indigo-100  " : ""
+                    period.period === s.description ? "bg-indigo-800  " : ""
                   )}
                 >
                   <dt
                     className={clsx(
                       " text-base font-semibold",
                       period.period === s.description
-                        ? "text-indigo-100 dark:text-gray-800 font-bold"
-                        : "text-gray-500 dark:text-gray-400 font-semibold"
+                        ? "text-indigo-100  font-bold"
+                        : "text-gray-500  font-semibold"
                     )}
                   >
                     {s.description}
@@ -311,8 +311,8 @@ export default function Index() {
                     className={clsx(
                       "mb-1 text-xl",
                       period.period === s.description
-                        ? "text-indigo-50  dark:text-gray-900 font-bold "
-                        : "text-indigo-600   dark:text-indigo-300 font-semibold"
+                        ? "text-indigo-50   font-bold "
+                        : "text-indigo-600    font-semibold"
                     )}
                   >
                     {data[s.name]}
@@ -324,19 +324,19 @@ export default function Index() {
         <div className="mt-2 text-sm w-full h-8 md:h-12 text-center">{period && period.remaining && <><span className="font-mono inline-flex items-center rounded-md bg-indigo-100 px-1.5 py-0.5 text-xs font-medium text-indigo-700">
         {period.remaining}
       </span> menit sebelum {period.next}</>} </div>
-        <p className="mt-6 text-sm md:text-lg text-gray-600 dark:text-gray-300 text-center ">
+        <p className="mt-6 text-sm md:text-lg text-gray-600  text-center ">
           "Sungguh, sholat itu adalah kewajiban yang ditentukan waktunya atas
           orang-orang yang beriman" - An-Nisa:103
         </p>
       </main>
-      <footer className="fixed bottom-0 left-0 z-50 w-full h-12 border-t border-gray-200 dark:bg-gray-700 dark:border-gray-600 bg-gray-50 text-center ">
+      <footer className="fixed bottom-0 left-0 z-50 w-full h-12 border-t border-gray-200  bg-gray-50 text-center ">
         <a
-          className="font-bold text-indigo-800 dark:text-indigo-100"
+          className="font-bold text-indigo-800"
           href="https://ppmedenhaag.nl"
         >
           PPME Den Haag
         </a>
-        <p className="text-sm text-gray-600 dark:text-gray-50 font-semibold">IBAN NL26 INGB 0002 1661 44</p>
+        <p className="text-sm text-gray-600 font-semibold">IBAN NL26 INGB 0002 1661 44</p>
       </footer>
     </div>
   );

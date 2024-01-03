@@ -35,8 +35,9 @@ export default function FullSchedule() {
           alt="PPME Den Haag"
         />
 
-        <h2 className="grow text-base font-semibold leading-7 text-gray-600 justify-end">
-          Jadwal Sholat Area Den Haag {year}
+        <h2 className="grid grid-cols-1 grow text-sm md:text-base divide-y divide-indigo-700 font-semibold leading-7 text-gray-600 justify-end">
+          <span>🇮🇩 Jadwal Sholat Den Haag {year}</span>
+          <span>🇳🇱 Gebedstijden Den Haag {year}</span>
         </h2>
       </div>
       <ol className="text-zinc-800  list-decimal mx-auto pt-8 pb-2">

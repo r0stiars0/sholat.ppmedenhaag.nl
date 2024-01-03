@@ -21,7 +21,7 @@ export default function FullSchedule() {
   const nlFormat = new Intl.DateTimeFormat('nl-NL', {month:"long"});
 
   const idDayFormat = new Intl.DateTimeFormat('id-ID', {weekday:"long"});
-  const nlDayFormat = new Intl.DateTimeFormat('nl-NL', {weekday:"long"});
+  const nlDayFormat = new Intl.DateTimeFormat('nl-NL', {weekday:"short"});
 
 
   
@@ -35,7 +35,7 @@ export default function FullSchedule() {
           alt="PPME Den Haag"
         /></a>
 
-        <h2 className="grid grid-cols-1 grow text-sm md:text-base divide-y divide-indigo-700 font-semibold leading-7 text-gray-600 justify-end">
+        <h2 id="top" className="grid grid-cols-1 grow text-sm md:text-base divide-y divide-indigo-700 font-semibold leading-7 text-gray-600 justify-end">
           <span>🇮🇩 Jadwal Sholat Den Haag {year}</span>
           <span>🇳🇱 Gebedstijden Den Haag {year}</span>
         </h2>
@@ -47,20 +47,21 @@ export default function FullSchedule() {
           <li key={m.bulan} className=" px-1 py-0.5  disc text-sm md:text-lg font-semibold text-left"><Link className="px-1  bg-gray-50 text-indigo-700 border-b border-b-indigo-700" to={`/full#${m.bulan}`}>{idFormat.format(new Date(m.bulan+"-01"))} / {nlFormat.format(new Date(m.bulan+"-01"))}</Link></li>
 )}</ol>
 
-      <div className="text-zinc-800 mb-auto mx-auto md:max-w-6xl px-2 lg:px-8 pt-2 pb-20">
+      <div className="text-zinc-800 mb-auto mx-auto md:max-w-6xl px-1 lg:px-8 pt-2 pb-20">
         {schedule &&
           schedule.length > 0 &&
           schedule.map((m) => 
           <div key={m.bulan} className="pt-8 pb-2">
-            <h2 id={m.bulan} className="text-xl font-semibold py-2">{idFormat.format(new Date(m.bulan+"-01"))} / {nlFormat.format(new Date(m.bulan+"-01"))}</h2>
+            <h2 id={m.bulan} className="text-xl font-semibold py-2">{idFormat.format(new Date(m.bulan+"-01"))} / {nlFormat.format(new Date(m.bulan+"-01"))} <Link to="/full#top">⬆️</Link></h2>
             <table className="table-auto border border-collapse   border-indigo-800 text-xs md:text-base text-zinc-800">
               <thead><tr className="font-thin text-zinc-800 text-xs md:text-base">
-              <th className=" border border-indigo-800 px-1">Tanggal / dag</th>
-              <th className="border border-indigo-800 px-1">Subuh</th>
-              <th className="border border-indigo-800 px-1">Dzuhur</th>
-              <th className="border border-indigo-800 px-1">Ashar</th>
-              <th className="border border-indigo-800 px-1">Maghrib</th>
-              <th className="border border-indigo-800 px-1">Isya</th>
+              <th className=" border border-indigo-800 px-0.5">Tanggal / dag</th>
+              <th className="border border-indigo-800 px-0.5">Subuh</th>
+              <th className="border border-indigo-800 px-0.5">Shuruq</th>
+              <th className="border border-indigo-800 px-0.5">Dzuhur</th>
+              <th className="border border-indigo-800 px-0.5">Ashar</th>
+              <th className="border border-indigo-800 px-0.5">Maghrib</th>
+              <th className="border border-indigo-800 px-0.5">Isya</th>
               </tr></thead>
               <tbody>
               {m.jadwal.map(d => 
@@ -74,11 +75,12 @@ export default function FullSchedule() {
                   </div>
                   </div>
                 </td>
-                <td className="border border-indigo-800 px-1">{d.Fajr}</td>
-                <td className="border border-indigo-800 px-1">{d.Duhr}</td>
-                <td className="border border-indigo-800 px-1">{d.Asr}</td>
-                <td className="border border-indigo-800 px-1">{d.Maghrib}</td>
-                <td className="border border-indigo-800 px-1">{d.Isha}</td>                
+                <td className="border border-indigo-800 px-1 text-sm">{d.Fajr}</td>
+                <td className="border border-indigo-800 px-1 text-sm">{d.Shuruk}</td>
+                <td className="border border-indigo-800 px-1 text-sm">{d.Duhr}</td>
+                <td className="border border-indigo-800 px-1 text-sm">{d.Asr}</td>
+                <td className="border border-indigo-800 px-1 text-sm">{d.Maghrib}</td>
+                <td className="border border-indigo-800 px-1 text-sm">{d.Isha}</td>                
               </tr>)}
               </tbody>
             </table>

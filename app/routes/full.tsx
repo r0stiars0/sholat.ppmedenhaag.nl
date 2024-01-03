@@ -47,7 +47,7 @@ export default function FullSchedule() {
           <li key={m.bulan} className=" px-1 py-0.5  disc text-sm md:text-lg font-semibold text-left"><Link className="px-1  bg-gray-50 text-indigo-700 border-b border-b-indigo-700" to={`/full#${m.bulan}`}>{idFormat.format(new Date(m.bulan+"-01"))} / {nlFormat.format(new Date(m.bulan+"-01"))}</Link></li>
 )}</ol>
 
-      <div className="text-zinc-800 mb-auto mx-auto md:max-w-6xl px-6 lg:px-8 pt-2 pb-20">
+      <div className="text-zinc-800 mb-auto mx-auto md:max-w-6xl px-2 lg:px-8 pt-2 pb-20">
         {schedule &&
           schedule.length > 0 &&
           schedule.map((m) => 

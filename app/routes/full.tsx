@@ -48,7 +48,7 @@ export default function FullSchedule() {
             <h2 className="text-xl font-semibold py-2">{idFormat.format(new Date(m.bulan+"-01"))} / {nlFormat.format(new Date(m.bulan+"-01"))}</h2>
             <table className="table-auto border border-collapse   border-indigo-800 text-xs md:text-base text-zinc-800">
               <thead><tr className="font-thin text-zinc-800 text-xs md:text-base">
-              <th className=" border border-indigo-800 px-1">Hari / dag</th>
+              <th className=" border border-indigo-800 px-1">Tanggal / dag</th>
               <th className="border border-indigo-800 px-1">Subuh</th>
               <th className="border border-indigo-800 px-1">Dzuhur</th>
               <th className="border border-indigo-800 px-1">Ashar</th>

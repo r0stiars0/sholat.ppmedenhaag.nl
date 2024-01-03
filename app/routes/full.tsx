@@ -47,8 +47,8 @@ export default function FullSchedule() {
           <div key={m.bulan} className="pt-8 pb-2">
             <h2 className="text-xl font-semibold py-2">{idFormat.format(new Date(m.bulan+"-01"))} / {nlFormat.format(new Date(m.bulan+"-01"))}</h2>
             <table className="table-auto border border-collapse   border-indigo-800 text-xs md:text-base text-zinc-800">
-              <thead><tr className="font-thin text-zinc-800">
-              <th className=" border border-indigo-800 px-1">Dag</th>
+              <thead><tr className="font-thin text-zinc-800 text-xs md:text-base">
+              <th className=" border border-indigo-800 px-1">Hari / dag</th>
               <th className="border border-indigo-800 px-1">Subuh</th>
               <th className="border border-indigo-800 px-1">Dzuhur</th>
               <th className="border border-indigo-800 px-1">Ashar</th>
@@ -57,11 +57,11 @@ export default function FullSchedule() {
               </tr></thead>
               <tbody>
               {m.jadwal.map(d => 
-              <tr key={d.Day} className="text-zinc-700">
+              <tr key={d.Day} className="text-zinc-700 text-xs md:text-base">
                 <td className="border border-indigo-800 px-1">
                   <div className="flex flex-auto items-center divide-x divide-indigo-500">
-                  <div className="w-12 text-xl font-semibold text-center">{d.Day}</div>
-                  <div className="w-full text-sm font-medium grid grid-cols-1 divide-y divide-indigo-500 px-1 text-center">
+                  <div className="w-12 text-xs md:text-base font-semibold text-center">{d.Day}</div>
+                  <div className="w-full text-xs md:text-sm font-medium grid grid-cols-1 divide-y divide-indigo-500 px-1 text-center">
                     <span>{idDayFormat.format(new Date(m.bulan+"-"+d.Day.toLocaleString(undefined,{minimumIntegerDigits:2})))}</span>
                   <span>{nlDayFormat.format(new Date(m.bulan+"-"+d.Day.toLocaleString(undefined,{minimumIntegerDigits:2})))}</span>
                   </div>

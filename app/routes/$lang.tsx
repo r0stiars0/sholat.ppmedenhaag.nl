@@ -17,12 +17,12 @@ export const meta: V2_MetaFunction = () => {
 };
 
 enum SholatPeriods {
-  Fajr = "Subuh",
-  Shuruk = "Shuruk",
-  Duhr = "Dzuhur",
-  Asr = "Ashar",
+  Fajr = "Fadjr",
+  Shuruk = "Shoroeq",
+  Duhr = "Dhohr",
+  Asr = "Asr",
   Maghrib = "Maghrib",
-  Isha = "Isya",
+  Isha = "Isha",
 }
 const schedules = [
   {

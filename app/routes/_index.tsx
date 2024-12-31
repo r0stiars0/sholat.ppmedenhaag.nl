@@ -17,12 +17,12 @@ export const meta: V2_MetaFunction = () => {
 };
 
 enum SholatPeriods {
-  Fajr = "Subuh",
-  Shuruk = "Shuruk",
-  Duhr = "Dzuhur",
-  Asr = "Ashar",
+  Fajr = "Fadjr",
+  Shuruk = "Shoroeq",
+  Duhr = "Dhohr",
+  Asr = "Asr",
   Maghrib = "Maghrib",
-  Isha = "Isya",
+  Isha = "Isha",
 }
 const schedules = [
   {
@@ -251,6 +251,7 @@ export default function Index() {
 
   return (
     <div className="flex flex-col  justify-between mx-auto text-center">
+      {period.period}
       <header className="flex pt-4 pb-2 items-center mx-auto justify-between gap-x-4 lg:gap-x-4 max-w-2xl lg:max-w-4xl border-b">
         
         <img src="ppmedenhaag.png" className="h-8 w-auto flex-none justify-start" alt="PPME Den Haag"/>
@@ -280,11 +281,7 @@ export default function Index() {
         </div>
         <div className="mx-auto mt-6 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
           <dl className="grid grid-cols-1 gap-x-2 gap-y-2 lg:max-w-none  lg:gap-y-4">
-            {data && data.Day === -1 && (
-              <h1 className="text-base font-semibold text-gray-600 text-center">
-                Maaf, jadwal sholat tidak tersedia.
-              </h1>
-            )}
+
 
             {data &&
               data.Day != -1 &&

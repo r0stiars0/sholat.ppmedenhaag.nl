@@ -66,7 +66,7 @@ export default function FullSchedule() {
               <tbody>
               {m.jadwal.map(d => 
               <tr key={d.Day} className="text-zinc-700 text-xs md:text-base">
-                <td className="border border-indigo-800 px-1">
+                <td className="border border-indigo-800 px-0.5">
                   <div className="flex flex-auto items-center divide-x divide-indigo-500">
                   <div className="w-12 text-xs md:text-base font-semibold text-center">{d.Day}</div>
                   <div className="w-full text-xs md:text-sm font-medium grid grid-cols-1 divide-y divide-indigo-500 px-1 text-center">
@@ -75,12 +75,12 @@ export default function FullSchedule() {
                   </div>
                   </div>
                 </td>
-                <td className="border border-indigo-800 px-1 text-sm">{d.Fajr}</td>
-                <td className="border border-indigo-800 px-1 text-sm">{d.Shuruk}</td>
-                <td className="border border-indigo-800 px-1 text-sm">{d.Duhr}</td>
-                <td className="border border-indigo-800 px-1 text-sm">{d.Asr}</td>
-                <td className="border border-indigo-800 px-1 text-sm">{d.Maghrib}</td>
-                <td className="border border-indigo-800 px-1 text-sm">{d.Isha}</td>                
+                <td className="border border-indigo-800 text-sm">{d.Fajr}</td>
+                <td className="border border-indigo-800 text-sm">{d.Shuruk}</td>
+                <td className="border border-indigo-800 text-sm">{d.Duhr}</td>
+                <td className="border border-indigo-800 text-sm">{d.Asr}</td>
+                <td className="border border-indigo-800 text-sm">{d.Maghrib}</td>
+                <td className="border border-indigo-800 text-sm">{d.Isha}</td>                
               </tr>)}
               </tbody>
             </table>

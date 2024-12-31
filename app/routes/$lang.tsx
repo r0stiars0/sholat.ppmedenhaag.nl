@@ -272,7 +272,7 @@ export default function IframePage() {
           <dl className="grid grid-cols-5">
             {data && data.Day === -1 && (
               <h1 className="text-base font-semibold text-gray-600 text-center">
-                Maaf, jadwal sholat tidak tersedia.
+                ...
               </h1>
             )}
 

@@ -23,6 +23,8 @@ export default function FullSchedule() {
   const idDayFormat = new Intl.DateTimeFormat('id-ID', {weekday:"long"});
   const nlDayFormat = new Intl.DateTimeFormat('nl-NL', {weekday:"short"});
 
+  const isLeapYear = !((year % 4) || (!(year % 100) && (year % 400)));
+
 
   
 
@@ -52,20 +54,26 @@ export default function FullSchedule() {
           schedule.length > 0 &&
           schedule.map((m) => 
           <div key={m.bulan} className="pt-8 pb-2">
-            <h2 id={m.bulan} className="text-xl font-semibold py-2">{idFormat.format(new Date(m.bulan+"-01"))} / {nlFormat.format(new Date(m.bulan+"-01"))} <Link to="/full#top">⬆️</Link></h2>
+            <h2 id={m.bulan} className="text-xl font-semibold py-2">{idFormat.format(new Date(`${year}-${m.bulan}-01`))} / {nlFormat.format(new Date(`${year}-${m.bulan}-01`))} <Link to="/full#top">⬆️</Link></h2>
             <table className="table-auto border border-collapse   border-indigo-800 text-xs md:text-base text-zinc-800">
               <thead><tr className="font-thin text-zinc-800 text-xs md:text-base">
               <th className=" border border-indigo-800 px-0.5">Tanggal / dag</th>
-              <th className="border border-indigo-800 px-0.5">Subuh</th>
-              <th className="border border-indigo-800 px-0.5">Shuruq</th>
-              <th className="border border-indigo-800 px-0.5">Dzuhur</th>
-              <th className="border border-indigo-800 px-0.5">Ashar</th>
+              <th className="border border-indigo-800 px-0.5">Isha</th>
               <th className="border border-indigo-800 px-0.5">Maghrib</th>
-              <th className="border border-indigo-800 px-0.5">Isya</th>
+              <th className="border border-indigo-800 px-0.5">Asr</th>
+              <th className="border border-indigo-800 px-0.5">Dhohr</th>
+              <th className="border border-indigo-800 px-0.5">Shoroeq</th>
+              <th className="border border-indigo-800 px-0.5">Fadjr</th>
+
+
+
+
+
               </tr></thead>
               <tbody>
               {m.jadwal.map(d => 
-              <tr key={d.Day} className="text-zinc-700 text-xs md:text-base">
+              (  (isLeapYear||
+                 ((!(m.bulan.slice(-2) === '02' && d.Day==='29')) && !isLeapYear)) && <tr key={d.Day} className="text-zinc-700 text-xs md:text-base">
                 <td className="border border-indigo-800 px-1">
                   <div className="flex flex-auto items-center divide-x divide-indigo-500">
                   <div className="w-12 text-xs md:text-base font-semibold text-center">{d.Day}</div>
@@ -75,13 +83,13 @@ export default function FullSchedule() {
                   </div>
                   </div>
                 </td>
-                <td className="border border-indigo-800 px-1 text-sm">{d.Fajr}</td>
-                <td className="border border-indigo-800 px-1 text-sm">{d.Shuruk}</td>
-                <td className="border border-indigo-800 px-1 text-sm">{d.Duhr}</td>
-                <td className="border border-indigo-800 px-1 text-sm">{d.Asr}</td>
+                <td className="border border-indigo-800 px-1 text-sm">{d.Isha}</td> 
                 <td className="border border-indigo-800 px-1 text-sm">{d.Maghrib}</td>
-                <td className="border border-indigo-800 px-1 text-sm">{d.Isha}</td>                
-              </tr>)}
+                <td className="border border-indigo-800 px-1 text-sm">{d.Asr}</td>
+                <td className="border border-indigo-800 px-1 text-sm">{d.Duhr}</td>
+                <td className="border border-indigo-800 px-1 text-sm">{d.Shuruk}</td>
+                <td className="border border-indigo-800 px-1 text-sm">{d.Fajr}</td>
+              </tr>))}
               </tbody>
             </table>
           </div>)}

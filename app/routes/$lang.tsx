@@ -27,17 +27,17 @@ enum SholatPeriods {
 const schedules = [
   {
     name: "Fajr",
-    description: "Subuh",
+    description: "Fadjr",
   },
 
   {
     name: "Duhr",
-    description: "Dzuhur",
-    icon: ArrowPathIcon,
+    description: "Dhohr",
+
   },
   {
     name: "Asr",
-    description: "Ashar",
+    description: "Asr",
   },
   {
     name: "Maghrib",
@@ -45,7 +45,7 @@ const schedules = [
   },
   {
     name: "Isha",
-    description: "Isya",
+    description: "Isha",
   },
 ];
 

@@ -27,17 +27,17 @@ enum SholatPeriods {
 const schedules = [
   {
     name: "Fajr",
-    description: "Subuh",
+    description: "Fadjr",
   },
 
   {
     name: "Duhr",
-    description: "Dzuhur",
-    icon: ArrowPathIcon,
+    description: "Dhohr",
+
   },
   {
     name: "Asr",
-    description: "Ashar",
+    description: "Asr",
   },
   {
     name: "Maghrib",
@@ -45,7 +45,7 @@ const schedules = [
   },
   {
     name: "Isha",
-    description: "Isya",
+    description: "Isha",
   },
 ];
 
@@ -270,11 +270,7 @@ export default function IframePage() {
           </h1>          
           </div>
           <dl className="grid grid-cols-5">
-            {data && data.Day === -1 && (
-              <h1 className="text-base font-semibold text-gray-600 text-center">
-                Maaf, jadwal sholat tidak tersedia.
-              </h1>
-            )}
+
 
             {data &&
               data.Day != -1 &&

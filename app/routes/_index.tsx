@@ -102,7 +102,7 @@ export async function loader() {
     currentDate.toLocaleDateString("nl-NL", { month: "2-digit", timeZone: "Europe/Amsterdam" });
   const a =
     JADWAL_SHOLAT.find((month) => month.bulan === yearMonth)?.jadwal.find(
-      (d) => d.Day === currentDate.getDate()
+      (d) => parseInt(d.Day) === currentDate.getDate()
     ) ?? DATA_NOT_FOUND;
   const data = mergeTimes(a);
 

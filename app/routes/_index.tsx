@@ -251,7 +251,7 @@ export default function Index() {
 
   return (
     <div className="flex flex-col  justify-between mx-auto text-center">
-      {period.period}
+      
       <header className="flex pt-4 pb-2 items-center mx-auto justify-between gap-x-4 lg:gap-x-4 max-w-2xl lg:max-w-4xl border-b">
         
         <img src="ppmedenhaag.png" className="h-8 w-auto flex-none justify-start" alt="PPME Den Haag"/>

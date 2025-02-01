@@ -12,7 +12,7 @@ export async function loader({ params }: LoaderArgs) {
     const day = parseInt(date!.substring(8));
     const a =
       JADWAL_SHOLAT.find((month) => month.bulan === currentMonth)?.jadwal.find(
-        (d) => d.Day === day
+        (d) => parseInt(d.Day) === day
       ) ?? DATA_NOT_FOUND;
   
     return json(a, { headers: { 'cache-control': 'no-cache' } });

@@ -297,7 +297,7 @@ export const JADWAL_SHOLAT = [
     bulan: "02",
     jadwal: [
       {
-        Day: 1,
+        Day: "1",
         Isha: "19:24",
         Maghrib: "17:35",
         Asr: "15:09",
@@ -306,7 +306,7 @@ export const JADWAL_SHOLAT = [
         Fajr: "6:22",
       },
       {
-        Day: 2,
+        Day: "2",
         Isha: "19:26",
         Maghrib: "17:37",
         Asr: "15:10",

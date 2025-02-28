@@ -26,6 +26,8 @@ export default function FullSchedule() {
   const isLeapYear = !((year % 4) || (!(year % 100) && (year % 400)));
 
 
+  const idLocale = new Intl.Locale("id");
+  const nlLocale = new Intl.Locale("nl");
   
 
   return (
@@ -78,8 +80,8 @@ export default function FullSchedule() {
                   <div className="flex flex-auto items-center divide-x divide-indigo-500">
                   <div className="w-12 text-xs md:text-base font-semibold text-center">{d.Day}</div>
                   <div className="w-full text-xs md:text-sm font-medium grid grid-cols-1 divide-y divide-indigo-500 px-1 text-center">
-                    <span>{idDayFormat.format(new Date(m.bulan+"-"+d.Day.toLocaleString(undefined,{minimumIntegerDigits:2})))}</span>
-                  <span>{nlDayFormat.format(new Date(m.bulan+"-"+d.Day.toLocaleString(undefined,{minimumIntegerDigits:2})))}</span>
+                    <span>{idDayFormat.format(new Date(year+"-"+m.bulan+"-"+d.Day.toLocaleString(idLocale,{minimumIntegerDigits:2})))}</span>
+                  <span>{nlDayFormat.format(new Date(year+"-"+m.bulan+"-"+d.Day.toLocaleString(nlLocale,{minimumIntegerDigits:2})))}</span>
                   </div>
                   </div>
                 </td>

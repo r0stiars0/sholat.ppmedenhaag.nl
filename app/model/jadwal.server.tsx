@@ -2752,7 +2752,7 @@ export const JADWAL_SHOLAT = [
         Day: 27,
         Fajr: "05:31",
         Shuruk: "07:24",
-        Duhr: "112:34",
+        Duhr: "12:34",
         Asr: "14:57",
         Maghrib: "17:29",
         Isha: "19:16",

@@ -547,16 +547,7 @@ export const JADWAL_SHOLAT = [
         Duhr: "13:03",
         Shuruk: "7:26",
         Fajr: "5:34",
-      },
-      {
-        Day: "29",
-        Isha: "20:10",
-        Maghrib: "18:25",
-        Asr: "15:47",
-        Duhr: "13:03",
-        Shuruk: "7:26",
-        Fajr: "5:34",
-      },
+      }
     ],
   },
   {
@@ -825,12 +816,12 @@ export const JADWAL_SHOLAT = [
       },
       {
         Day: "30",
-        Isha: "21:12",
-        Maghrib: "19:19",
-        Asr: "16:21",
-        Duhr: "12:55",
-        Shuruk: "6:15",
-        Fajr: "4:15",
+        Isha: "22:12",
+        Maghrib: "20:19",
+        Asr: "17:21",
+        Duhr: "13:55",
+        Shuruk: "7:15",
+        Fajr: "5:15",
       },
       {
         Day: "31",

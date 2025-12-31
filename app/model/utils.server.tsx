@@ -55,3 +55,8 @@ function getDSTChangeDates(year:number) {
     october: getLastSundayOfMonth(year, 9)   // October
   };
 }
+
+function getLastDateOfFebruary(year:number) {
+  // February is month index 1
+  return new Date(year, 2, 0).getDate();
+}

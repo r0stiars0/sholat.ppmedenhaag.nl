@@ -62,7 +62,7 @@ export default function FullSchedule() {
               <h2 id={m.bulan} className="text-xl font-semibold py-2">{idFormat.format(new Date(`${year}-${m.bulan}-01`))} / {nlFormat.format(new Date(`${year}-${m.bulan}-01`))} <Link to="/full#top">⬆️</Link></h2>
               <table className="table-auto border border-collapse   border-indigo-800 text-xs md:text-base text-zinc-800">
                 <thead><tr className="font-thin text-zinc-800 text-xs md:text-base">
-                  <th className=" border border-indigo-800 px-0.5">Tanggal / dag</th>
+                  <th className="border border-indigo-800 px-0.5">Tanggal / dag</th>
                   <th className="border border-indigo-800 px-0.5">Isha</th>
                   <th className="border border-indigo-800 px-0.5">Maghrib</th>
                   <th className="border border-indigo-800 px-0.5">Asr</th>

@@ -78,7 +78,7 @@ export default function FullSchedule() {
                 <tbody>
                   {m.jadwal.map(d =>
                   ((isLeapYear ||
-                    ((!(m.bulan.slice(-2) === '02' && d.Day === '29')) && !isLeapYear)) && <tr key={d.Day} className="text-zinc-700 text-xs md:text-base">
+                    ((!(m.bulan.slice(-2) === '02' && d.Day === 29)) && !isLeapYear)) && <tr key={d.Day} className="text-zinc-700 text-xs md:text-base">
                       <td className="border border-indigo-800 px-1">
                         <div className="flex flex-auto items-center divide-x divide-indigo-500">
                           <div className="w-12 text-xs md:text-base font-semibold text-center">{d.Day}</div>

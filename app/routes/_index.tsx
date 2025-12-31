@@ -2,8 +2,8 @@ import { json, V2_MetaFunction } from "@remix-run/node";
 import { useEffect, useState } from "react";
 
 import { useFetcher, useLoaderData } from "@remix-run/react";
-import { DATA_NOT_FOUND, JADWAL_SHOLAT } from "~/model/jadwal.server";
 import clsx from "clsx";
+import { DATA_NOT_FOUND, JADWAL_SHOLAT } from "~/model/jadwal.server";
 
 
 export const meta: V2_MetaFunction = () => {

@@ -34,3 +34,24 @@ function getEUDSTDates(year:number) {
         dstEnd: dstEnd.toDateString()      // e.g., "Sun Oct 27 2024"
     };
 }
+
+
+function getLastSundayOfMonth(year:number, monthIndex:number) {
+  // monthIndex: 0 = January, 2 = March, 9 = October
+  // Create date for the last day of the month
+  const date = new Date(year, monthIndex + 1, 0);
+
+  // Move backwards to the last Sunday
+  const dayOfWeek = date.getDay(); // 0 = Sunday
+  date.setDate(date.getDate() - dayOfWeek);
+
+  return date;
+}
+
+function getDSTChangeDates(year:number) {
+  return {
+    year,
+    march: getLastSundayOfMonth(year, 2),    // March
+    october: getLastSundayOfMonth(year, 9)   // October
+  };
+}

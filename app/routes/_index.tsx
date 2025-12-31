@@ -1,15 +1,9 @@
 import { json, V2_MetaFunction } from "@remix-run/node";
-import {
-  ArrowPathIcon,
-  CloudArrowUpIcon,
-  FingerPrintIcon,
-  LockClosedIcon,
-} from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 
 import { useFetcher, useLoaderData } from "@remix-run/react";
-import { DATA_NOT_FOUND, JADWAL_SHOLAT } from "~/model/jadwal.server";
 import clsx from "clsx";
+import { DATA_NOT_FOUND, JADWAL_SHOLAT } from "~/model/jadwal.server";
 
 
 export const meta: V2_MetaFunction = () => {
@@ -58,27 +52,7 @@ function convertStringToDate(time: string) {
   return new Date();
 }
 
-const dateFormat = new Intl.DateTimeFormat("nl-NL", {
-  year: "numeric",
-  month: "2-digit",
-  second: "2-digit",
-  hourCycle: "h23",
-  timeZoneName: "short",
-});
-const durationFormat = new Intl.DateTimeFormat("nl-NL", {
-  hour: "2-digit",
-  minute: "2-digit",
-  second: "2-digit",
-  hourCycle: "h23",
-});
-const timeFormat = new Intl.DateTimeFormat("nl-NL", {
-        
-  hour: "2-digit",
-  minute:"2-digit",
-  second:"2-digit",
-  hourCycle: "h23",
-  timeZoneName:"short"
-});
+
 function dateToString(date: Date) {
   const day =
     date.toLocaleDateString("nl-NL", { year: "numeric" }) +
@@ -102,7 +76,7 @@ export async function loader() {
     currentDate.toLocaleDateString("nl-NL", { month: "2-digit", timeZone: "Europe/Amsterdam" });
   const a =
     JADWAL_SHOLAT.find((month) => month.bulan === yearMonth)?.jadwal.find(
-      (d) => parseInt(d.Day) === currentDate.getDate()
+      (d) => d.Day === currentDate.getDate()
     ) ?? DATA_NOT_FOUND;
   const data = mergeTimes(a);
 
